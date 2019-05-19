@@ -67,13 +67,15 @@ def create_fmri_factor_plot(
     colorbar=True,
     zscore = True,
     rotation = 1,
-    figsize = (4, 4)
+    figsize = (4, 4),
+    ax=None
 ):
 
     if zscore:
         image = st.zscore(image, axis=1)
 
-    fig, ax = plt.subplots(1, 1, figsize=figsize)
+    if ax is None:
+        _, ax = plt.subplots(1, 1, figsize=figsize)
 
     plt.tight_layout()
     create_tile_plot(
@@ -86,7 +88,7 @@ def create_fmri_factor_plot(
         colorbar=colorbar
     )
 
-    return fig, ax
+    return ax
 
 
 
