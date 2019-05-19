@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import scipy.stats as st
 import numpy as np
-from base import tile_image, maryland_cmap
+from .base import tile_image, maryland_cmap
 
 
 
