@@ -68,7 +68,8 @@ def create_fmri_factor_plot(
     zscore = True,
     rotation = 1,
     figsize = (4, 4),
-    ax=None
+    ax=None,
+    threshold = None
 ):
 
     if zscore:
@@ -78,6 +79,10 @@ def create_fmri_factor_plot(
         _, ax = plt.subplots(1, 1, figsize=figsize)
 
     plt.tight_layout()
+
+    if threshold is not None:
+        image = mask_threshold(image, threshold)
+
     create_tile_plot(
         image,
         template,
@@ -90,7 +95,15 @@ def create_fmri_factor_plot(
 
     return ax
 
+def mask_threshold(image, threshold):
 
+    existing_mask = image.mask
+    new_mask = np.ma.make_mask(np.abs(image) < threshold)
+
+    combined_mask = np.ma.mask_or(existing_mask, new_mask)
+
+    thresholded_image = np.ma.array(image.data, mask=combined_mask)
+    return thresholded_image
 
 
 def create_tile_plot(
