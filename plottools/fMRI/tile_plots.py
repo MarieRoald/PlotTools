@@ -125,6 +125,7 @@ def create_tile_plot(
             slice_idx = range(num_slices)
         elif num_tiles < num_slices:
             slice_idx = np.linspace(0, num_slices - 1, num_rows * num_cols).astype(int)
+            slice_idx = np.flip(slice_idx)
 
     img = image[..., slice_idx]
     for i in range(rotation):
