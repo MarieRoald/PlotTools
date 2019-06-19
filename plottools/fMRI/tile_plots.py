@@ -69,7 +69,9 @@ def create_fmri_factor_plot(
     rotation = 1,
     figsize = (4, 4),
     ax=None,
-    threshold = None
+    threshold = None,
+    title=None,
+    slice_idx=None
 ):
 
     if zscore:
@@ -90,10 +92,63 @@ def create_fmri_factor_plot(
         num_rows=num_tile_rows,
         num_cols=num_tile_cols,
         cmap=cmap,
-        colorbar=colorbar
+        colorbar=colorbar,
+        title=title,
+        slice_idx=slice_idx
     )
 
     return ax
+
+def create_fmri_evolving_factor_plot(
+    image,
+    template,
+    slice_idx=None,
+    num_rows=4,
+    num_cols=4,
+    num_tile_rows=3,
+    num_tile_cols=4,
+    cmap="inferno",
+    colorbar=True,
+    zscore = True,
+    rotation = 1,
+    threshold = None,
+):
+
+    if zscore:
+        image = st.zscore(image, axis=1)
+
+    subplots_fig, subplots_axes = plt.subplots(
+        num_rows, num_cols, figsize=(4 * num_rows, 4 * num_cols)
+    )
+
+    plt.tight_layout()
+
+    for i in range(num_rows):
+        for j in range(num_cols):
+            time_step = num_cols*i + j
+
+            subplot_ax = subplots_axes[i][j]
+
+            if time_step >= image.shape[-1]:
+                subplot_ax.set_visible(False)
+
+            else:
+                create_fmri_factor_plot(
+                    image[..., time_step],
+                    template,
+                    ax=subplot_ax,
+                    title=f"t = {time_step}",
+                    slice_idx=slice_idx,
+                    num_tile_rows=num_tile_rows,
+                    num_tile_cols=num_tile_cols,
+                    cmap=cmap,
+                    colorbar=colorbar,
+                    zscore = zscore,
+                    rotation = rotation,
+                    threshold = threshold
+                )
+    return subplots_fig, subplots_axes
+
 
 def mask_threshold(image, threshold):
 
