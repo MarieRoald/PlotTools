@@ -22,7 +22,9 @@ def create_fmri_timesteps_plot(
     cmap="inferno",
     colorbar=True,
     zscore = True,
-    rotation = 1
+    rotation = 1,
+    vmin=None,
+    vmax=None,
 ):
 
     if zscore:
@@ -54,7 +56,9 @@ def create_fmri_timesteps_plot(
                     num_rows=num_tile_rows,
                     num_cols=num_tile_cols,
                     cmap=cmap,
-                    colorbar=colorbar
+                    colorbar=colorbar,
+                    vmin=vmin,
+                    vmax=vmax,
                 )
     return subplots_fig, subplots_axes
 
@@ -71,7 +75,9 @@ def create_fmri_factor_plot(
     ax=None,
     threshold = None,
     title=None,
-    slice_idx=None
+    slice_idx=None,
+    vmin=None,
+    vmax=None,
 ):
 
     if zscore:
@@ -94,7 +100,9 @@ def create_fmri_factor_plot(
         cmap=cmap,
         colorbar=colorbar,
         title=title,
-        slice_idx=slice_idx
+        slice_idx=slice_idx,
+        vmin=vmin,
+        vmax=vmax,
     )
 
     return ax
@@ -112,6 +120,8 @@ def create_fmri_evolving_factor_plot(
     zscore = True,
     rotation = 1,
     threshold = None,
+    vmin=None,
+    vmax=None,
 ):
 
     if zscore:
@@ -145,7 +155,9 @@ def create_fmri_evolving_factor_plot(
                     colorbar=colorbar,
                     zscore = zscore,
                     rotation = rotation,
-                    threshold = threshold
+                    threshold = threshold,
+                    vmin=vmin,
+                    vmax=vmax
                 )
     return subplots_fig, subplots_axes
 
@@ -171,7 +183,9 @@ def create_tile_plot(
     num_cols=4,
     cmap="maryland",
     colorbar=True,
-    rotation = 1
+    rotation = 1,
+    vmin=None,
+    vmax=None,
 ):
     if slice_idx is None:
         num_tiles = num_rows * num_cols
@@ -203,6 +217,8 @@ def create_tile_plot(
         title=title,
         cmap=cmap,
         colorbar=colorbar,
+        vmin=vmin,
+        vmax=vmax
     )
 
 
