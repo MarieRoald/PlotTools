@@ -31,7 +31,7 @@ def create_fmri_timesteps_plot(
         image = st.zscore(image, axis=1)
 
     subplots_fig, subplots_axes = plt.subplots(
-        num_rows, num_cols, figsize=(4 * num_rows, 4 * num_cols)
+        num_rows, num_cols, figsize=(4 * num_cols, 4 * num_rows), squeeze=False
     )
 
     plt.tight_layout()
@@ -104,6 +104,7 @@ def create_fmri_factor_plot(
         vmin=vmin,
         vmax=vmax,
     )
+    ax.axis('off')
 
     return ax
 
@@ -128,7 +129,7 @@ def create_fmri_evolving_factor_plot(
         image = st.zscore(image, axis=1)
 
     subplots_fig, subplots_axes = plt.subplots(
-        num_rows, num_cols, figsize=(4 * num_rows, 4 * num_cols)
+        num_rows, num_cols, figsize=(4 * num_cols, 4 * num_rows), squeeze=False
     )
 
     plt.tight_layout()
