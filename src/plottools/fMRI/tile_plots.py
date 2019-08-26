@@ -28,7 +28,7 @@ def create_fmri_timesteps_plot(
 ):
 
     if zscore:
-        image = st.zscore(image, axis=1)
+        image = st.zscore(image, axis=(0, 1, 2))
 
     subplots_fig, subplots_axes = plt.subplots(
         num_rows, num_cols, figsize=(4 * num_cols, 4 * num_rows), squeeze=False
@@ -81,7 +81,7 @@ def create_fmri_factor_plot(
 ):
 
     if zscore:
-        image = st.zscore(image, axis=1)
+        image = st.zscore(image, axis=(0, 1, 2))
 
     if ax is None:
         _, ax = plt.subplots(1, 1, figsize=figsize)
