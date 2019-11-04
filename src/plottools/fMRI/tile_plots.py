@@ -84,7 +84,8 @@ def create_fmri_factor_plot(
 
     if zscore:
         shape = image.shape
-        image = st.zscore(image.ravel()).reshape(shape)
+        image = st.zscore(image.ravel())
+        image = image.reshape(shape)
 
     if ax is None:
         _, ax = plt.subplots(1, 1, figsize=figsize)
