@@ -26,7 +26,7 @@ def _insert_masked_voxeldata_f_order(img, mask, voxeldata):
     return img
 
 
-def get_fMRI_image(voxeldata, mask):
+def get_fMRI_image(voxeldata, mask, f_order=True):
     """Places the 1D voxeldata into the correct voxels from a 3D mask.
 
     Arguments
@@ -38,7 +38,10 @@ def get_fMRI_image(voxeldata, mask):
         is extracted from
     """
     img = np.zeros_like(mask, dtype=np.float)
-    img = _insert_masked_voxeldata_f_order(img, mask, voxeldata)
+    if f_order:
+        img = _insert_masked_voxeldata_f_order(img, mask, voxeldata)
+    else:
+        img[mask == 1] = voxeldata
     return np.ma.masked_array(img, mask=mask == 0)
 
 def _get_fmri_images_from_unfolded(voxeldata, mask):
